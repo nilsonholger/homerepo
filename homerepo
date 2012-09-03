@@ -39,6 +39,11 @@ _SRCDIR="PATH_TO_REPOSITORIES"
 
 # update order, if none is found, all subdirectories of $_SRSDIR will be
 # updated in alphabetical order
+#
+# format (empty lines are possible, NOTHING else):
+# directory1
+# directory2
+# ...
 _UPDATE_ORDER="$_CONFDIR/order"
 
 # log file location
