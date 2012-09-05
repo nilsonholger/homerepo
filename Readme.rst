@@ -26,6 +26,11 @@ But worry no more, this is exactly where homerepo comes in handy.
 Setup
 ======
 
+Just clone the repository and use it right away (or get the homerepo script
+directly here: https://raw.github.com/nilsonholger/homerepo/master/homerepo).
+For a more permament setup, just drop (or link) the homerepo script somewhere in
+your *$PATH*.
+
 At its first run, homerepo will create: ::
 
     .config/homerepo/
