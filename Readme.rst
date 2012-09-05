@@ -64,7 +64,7 @@ example: ::
     ./configure --prefix=$HOME/local
     cmake -DCMAKE_INSTALL_PREFIX=$HOME/local
 
-. If you choose to also do so, you could modify *$PATH* and other environment
+If you choose to also do so, you could modify *$PATH* and other environment
 variables accordingly, so other programs and tools will find these: ::
 
     export PATH="$PATH:$HOME/local/bin"
