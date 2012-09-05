@@ -1,9 +1,5 @@
 #! /usr/bin/env bash
 #
-# homerepo
-# manages a list/directory of git/svn/mercurial/cvs repositories by pulling
-# changes to the repository and if necessary, building and installing them
-#
 # Copyright (C) 2012 nilsonholger@hyve.org
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -35,19 +31,19 @@ then
 # HOMEREPO CONFIG
 
 # base directory of repositories you want homerepo to manage
-_SRCDIR="PATH_TO_REPOSITORIES"
+_SRCDIR="\$HOME/local/homerepo"
 
-# update order, if none is found, all subdirectories of $_SRSDIR will be
+# update order, if none is found, all subdirectories of \$_SRSDIR will be
 # updated in alphabetical order
 #
-# format (empty lines are possible, NOTHING else):
+# format (empty lines are possible, NOTHING else, no comments etc.):
 # directory1
 # directory2
 # ...
-_UPDATE_ORDER="$_CONFDIR/order"
+_UPDATE_ORDER="\$HOME/.config/homerepo/order"
 
 # log file location
-_LOGFILE="$HOME/.cache/homerepo.log"
+_LOGFILE="\$HOME/.cache/homerepo.log"
 EOF
 echo "Please update the config file in $_CONFDIR/config"
 exit
