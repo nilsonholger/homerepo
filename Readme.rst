@@ -15,6 +15,7 @@ Index
 * `Setup`_
 * `Usage`_
 * `Output and Logging`_
+* `Chicken and Eggs`_
 * `Final Notice`_
 * `License`_
 
@@ -127,9 +128,20 @@ A short example of that output::
     +++ llvm [GIT]
     === ack [GIT]
     === cloc [SUBVERSION]
+    === homerepo [GIT]
     === dmenu [MERCURIAL]
     === git [GIT]
     +++ rxvt-unicode [CVS]
+
+-----------------
+
+Chicken and Eggs
+=================
+
+**homerepo** can of course manage itself, just put your homerepo checkout into
+*$HOME/local/homerepo/homerepo* (or use
+'git clone https://github.com/nilsonholger/homerepo.git ~/local/homerepo/homerepo)
+and homerepo will hapily do so.
 
 -------------
 
