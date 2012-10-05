@@ -102,7 +102,7 @@ Usage
 
 Running **homerepo** without any arguments gives::
 
-    usage: /home/dkoester/local/bin/homerepo <command>
+    usage: $PATH/TO/homerepo <command>
 
         list                            list update order of repositories
         upgrade [<repo1> [<repo...>]]   upgrade given (or all) repositories
