@@ -63,7 +63,7 @@ The config will look like::
     # base directory of repositories you want homerepo to manage
     _SRCDIR="$HOME/local/homerepo"
 
-    # update order, if none is found, all subdirectories of $_SRSDIR will be
+    # update order, if none is found, all subdirectories of $_SRCDIR will be
     # updated in alphabetical order
     #
     # format (empty lines are possible, NOTHING else, no comments etc.):
