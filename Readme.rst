@@ -122,16 +122,12 @@ Output and Logging
 The log will reside in *$_LOGFILE* (defaults to *$HOME/.cache/homerepo.log*).
 A short example of that output (now with colors, not shown here)::
 
-    +++ gcc [SUBVERSION]
-    +++ llvm/tools/clang [GIT]
-    !!! llvm/tools/clang [GIT] BUILD FAILED
-    +++ llvm [GIT]
-    === ack [GIT]
-    === cloc [SUBVERSION]
-    === homerepo [GIT]
-    === dmenu [MERCURIAL]
-    === git [GIT]
-    +++ rxvt-unicode [CVS]
+    +++ gcc [SUBVERSION]                 <-- bright yellow
+    XXX homerepo [GIT] UPDATE FAILED     <-- bright red
+    === dmenu [MERCURIAL]                <-- green
+    +++ git [GIT]                        <-- bright yellow
+    XXX git [GIT] BUILD FAILED           <-- bright red
+    === rxvt-unicode [CVS]               <-- green
 
 -----------------
 
