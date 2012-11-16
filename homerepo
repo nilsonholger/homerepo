@@ -101,8 +101,8 @@ function update_git {
 _SCM='GIT'
 echo "GIT STATUS" | add_prefix $1
 git pull 2>&1 | tee $_TEST | add_prefix $1
-grep -q -E "(Already up-to-date|Current branch .* is up to date)" $_TEST \
-	&& _UPDATE='' || _UPDATE=true
+grep -q -E "(Already up-to-date|Current branch .* is up to date)" $_TEST || _UPDATE="TRUE"
+grep -q -E "You have unstaged changes" $_TEST && _UPDATE="FAIL"
 }
 
 
@@ -111,8 +111,9 @@ grep -q -E "(Already up-to-date|Current branch .* is up to date)" $_TEST \
 function update_mercurial {
 _SCM='MERCURIAL'
 echo "MERCURIAL STATUS" | add_prefix $1
-hg pull | tee $_TEST | add_prefix $1
-grep -q "no changes found" $_TEST && _UPDATE='' || _UPDATE=true
+hg pull -u | tee $_TEST | add_prefix $1
+grep -q "no changes found" $_TEST || _UPDATE="TRUE"
+#grep -q -E "TODO" $_TEST && _UPDATE="FAIL" # might not be possible in mercurial
 }
 
 
@@ -121,8 +122,9 @@ grep -q "no changes found" $_TEST && _UPDATE='' || _UPDATE=true
 function update_subversion {
 _SCM='SUBVERSION'
 echo "SUBVERSION STATUS" | add_prefix $1
-svn update | tee $_TEST | add_prefix $1
-grep -q "At revision" $_TEST && _UPDATE='' || _UPDATE=true
+svn update --accept postpone | tee $_TEST | add_prefix $1
+grep -q "At revision" $_TEST || _UPDATE="TRUE"
+grep -q "Summary of conflicts" $_TEST && _UPDATE="FAIL"
 }
 
 
@@ -132,7 +134,8 @@ function update_cvs {
 _SCM='CVS'
 echo "CVS STATUS" | add_prefix $1
 cvs update 2>/dev/null | tee $_TEST | add_prefix $1
-grep -q -E "^P " $_TEST && _UPDATE=true || _UPDATE=''
+grep -q -E "^P " $_TEST || _UPDATE=''
+grep -q "conflicts found" $_TEST && _UPDATE="FAIL"
 }
 
 
@@ -151,6 +154,7 @@ do
 	# reset internals
 	_SCM=''
 	_BUILD_FAILED=''
+	_UPDATE=''
 
 	# check SCM and update
 	[ -d .git ] && update_git $_DIR
@@ -158,13 +162,14 @@ do
 	[ -d .svn ] && update_subversion $_DIR
 	[ -d CVS ] && update_cvs $_DIR
 	[ ! $_SCM ] && out_buffer "--- $_DIR [NO_SCM]" && continue
-	[ ! $_UPDATE ] && out_buffer "=== $_DIR [$_SCM]" "$_GREEN" && continue
+	[ -z $_UPDATE ] && out_buffer "=== $_DIR [$_SCM]" "$_GREEN" && continue
+	[ "$_UPDATE" == "FAIL" ] && out_buffer "XXX $_DIR [$_SCM] UPDATE FAILED" "$_RED_B" && continue
 
 	# upgrade
 	out_buffer "+++ $_DIR [$_SCM]" "$_YELLOW_B"
 	[ -r build/Makefile ] && cd build
 	[ -r Makefile ] && make | add_prefix $_DIR
-	[ -r Makefile ] && make > /dev/null || _BUILD_FAILED=true
+	[ -r Makefile ] && (make > /dev/null || _BUILD_FAILED=true)
 	[ ! $_BUILD_FAILED ] && make install | add_prefix $_DIR
 	[ $_BUILD_FAILED ] && out_buffer "XXX $_DIR [$_SCM] BUILD FAILED" "$_RED_B"
 done
