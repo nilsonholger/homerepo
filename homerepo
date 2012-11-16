@@ -92,7 +92,6 @@ done
 # list of directories to check for updates
 function update_list {
 [ -r $_UPDATE_ORDER ] && _ORDER=`cat $_UPDATE_ORDER` || _ORDER=`ls $_SRCDIR`
-#eval "_ORDER=($_ORDER)"
 }
 
 
