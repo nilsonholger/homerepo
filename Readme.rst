@@ -47,7 +47,7 @@ Setup
 ======
 
 Just clone the repository and use it right away (or get the homerepo script
-directly here: https://raw.github.com/nilsonholger/homerepo/master/homerepo).
+here: https://raw.github.com/nilsonholger/homerepo/master/homerepo).
 For a more permament setup, just drop (or link) the homerepo script somewhere in
 your *$PATH*.
 
@@ -134,10 +134,9 @@ A short example of that output (now with colors, not shown here)::
 Chicken and Eggs
 =================
 
-**homerepo** can of course manage itself, just put your homerepo checkout into
-*$HOME/local/homerepo/homerepo* (or use
-'git clone https://github.com/nilsonholger/homerepo.git ~/local/homerepo/homerepo)
-and homerepo will hapily do so.
+**homerepo** can of course manage itself, just do a
+**git clone https://github.com/nilsonholger/homerepo.git ~/local/homerepo/homerepo**
+if *$HOME/local/homerepo* is your *$_SRCDIR* and homerepo will hapily do so.
 
 -------------
 
