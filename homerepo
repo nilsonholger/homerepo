@@ -108,7 +108,7 @@ grep -q -E "(Already up-to-date|Current branch .* is up to date)" $_TEST \
 
 
 
-# mercurial (o how i despise thee)
+# mercurial (o how i neglect thee)
 function update_mercurial {
 _SCM='MERCURIAL'
 echo "MERCURIAL STATUS" | add_prefix $1
@@ -128,7 +128,7 @@ grep -q "At revision" $_TEST && _UPDATE='' || _UPDATE=true
 
 
 
-# cvs (o how i neglect thee)
+# cvs (o how i despise thee)
 function update_cvs {
 _SCM='CVS'
 echo "CVS STATUS" | add_prefix $1
