@@ -142,18 +142,25 @@ function upgrade_list {
 echo "`date`" > $_LOGFILE
 for _DIR in $*
 do
+	# check directory
 	cd $_SRCDIR
 	[ -d $_DIR ] || out_buffer "!!! $_DIR [NOT FOUND]" "$_RED_B"
 	[ -d $_DIR ] || continue
 	cd $_DIR
+
+	# reset internals
 	_SCM=''
 	_BUILD_FAILED=''
+
+	# check SCM and update
 	[ -d .git ] && update_git $_DIR
 	[ -d .hg ] && update_mercurial $_DIR
 	[ -d .svn ] && update_subversion $_DIR
 	[ -d CVS ] && update_cvs $_DIR
 	[ ! $_SCM ] && out_buffer "--- $_DIR [NO_SCM]" && continue
 	[ ! $_UPDATE ] && out_buffer "=== $_DIR [$_SCM]" "$_GREEN" && continue
+
+	# upgrade
 	out_buffer "+++ $_DIR [$_SCM]" "$_YELLOW_B"
 	[ -r build/Makefile ] && cd build
 	[ -r Makefile ] && make | add_prefix $_DIR
