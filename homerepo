@@ -166,12 +166,12 @@ do
 	[ "$_UPDATE" == "FAIL" ] && out_buffer "XXX $_DIR [$_SCM] UPDATE FAILED" "$_RED_B" && continue
 
 	# upgrade
-	out_buffer "+++ $_DIR [$_SCM]" "$_YELLOW_B"
 	[ -r build/Makefile ] && cd build
 	[ -r Makefile ] && make | add_prefix $_DIR
-	[ -r Makefile ] && (make > /dev/null || _BUILD_FAILED=true)
-	[ ! $_BUILD_FAILED ] && make install | add_prefix $_DIR
-	[ $_BUILD_FAILED ] && out_buffer "XXX $_DIR [$_SCM] BUILD FAILED" "$_RED_B"
+	[ -r Makefile ] && eval 'make &> /dev/null || _BUILD_FAILED="TRUE"'
+	[ $_BUILD_FAILED ] && out_buffer "XXX $_DIR [$_SCM] BUILD FAILED" "$_RED_B" && continue
+	make install | add_prefix $_DIR
+	out_buffer "+++ $_DIR [$_SCM]" "$_YELLOW_B"
 done
 
 echo
