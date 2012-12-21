@@ -100,7 +100,7 @@ function update_list {
 function update_git {
 _SCM='GIT'
 echo "GIT STATUS" | add_prefix $1
-_GIT_STASH=`git status --porcelain | grep '^ M'`
+_GIT_STASH=`git status --porcelain | grep -E "^(M| ){2}"`
 [ -n "$_GIT_STASH" ] && git stash | add_prefix $1
 git pull 2>&1 | tee $_TEST | add_prefix $1
 [ -n "$_GIT_STASH" ] && git stash pop | add_prefix $1
