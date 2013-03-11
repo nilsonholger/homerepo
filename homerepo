@@ -22,6 +22,13 @@
 
 
 
+# TODO functions: rename
+# TODO thorough rewrite: create outer loop that calls functions depending on desired action
+# TODO per SCM: separate status and upgrade process
+# TODO add changelog (also for older entries)
+
+
+
 # setup
 _CONFDIR="$HOME/.config/homerepo"
 if [ ! -d $_CONFDIR ]
@@ -116,7 +123,7 @@ _SCM='MERCURIAL'
 echo "MERCURIAL STATUS" | add_prefix $1
 hg pull -u | tee $_TEST | add_prefix $1
 grep -q "no changes found" $_TEST || _UPDATE="TRUE"
-#grep -q -E "TODO" $_TEST && _UPDATE="FAIL" # might not be possible in mercurial
+#grep -q -E "todo" $_TEST && _UPDATE="FAIL" # might not be possible in mercurial
 }
 
 
@@ -139,6 +146,22 @@ echo "CVS STATUS" | add_prefix $1
 cvs update 2>/dev/null | tee $_TEST | add_prefix $1
 grep -q -E "^P " $_TEST || _UPDATE=''
 grep -q "conflicts found" $_TEST && _UPDATE="FAIL"
+}
+
+
+
+# show status of all repos
+function status_list {
+for _DIR in $*
+do
+	# check directory
+	cd $_SRCDIR
+	[ -d $_DIR ] || out_buffer "!!! $_DIR [NOT FOUND]" "$_RED_B"
+	[ -d $_DIR ] || continue
+	cd $_DIR
+
+	[ -d .git ] && git status | grep modified
+done
 }
 
 
@@ -195,6 +218,10 @@ case $1 in
 		update_list
 		echo $_ORDER
 		;;
+	status)
+		update_list
+		[ -z $2 ] && status_list $_ORDER || (shift && status_list $*)
+		;;
 	upgrade)
 		update_list
 		[ -z $2 ] && upgrade_list $_ORDER || (shift && upgrade_list $*)
@@ -204,6 +231,7 @@ case $1 in
 usage: $0 <command>
 
 	list                            list update order of repositories
+	status [<repo1> [<repo...>]]    show status of given (or all) repositories
 	upgrade [<repo1> [<repo...>]]   upgrade given (or all) repositories
 	help                            guess what you're looking at...
 EOF
