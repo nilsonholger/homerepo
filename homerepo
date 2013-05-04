@@ -22,6 +22,7 @@
 
 
 
+# TODO add NOBUILD flag for individual resources
 # TODO functions: rename
 # TODO thorough rewrite: create outer loop that calls functions depending on desired action
 # TODO per SCM: separate status and upgrade process
