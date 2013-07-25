@@ -238,3 +238,6 @@ esac
 
 # cleanup
 [ -r $_TEST ] && rm $_TEST
+
+# return proper exit code
+exit 0
