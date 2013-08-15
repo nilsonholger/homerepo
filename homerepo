@@ -180,7 +180,7 @@ do
 	_UPDATE=''
 
 	# check SCM and update
-	[ -d .git ] && update_git $_DIR
+	[ -r .git ] && update_git $_DIR
 	[ -d .hg ] && update_mercurial $_DIR
 	[ -d .svn ] && update_subversion $_DIR
 	[ -d CVS ] && update_cvs $_DIR
