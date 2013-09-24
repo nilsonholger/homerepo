@@ -22,6 +22,7 @@
 
 
 
+# TODO capture return value of every command in upgrade process
 # TODO add NOBUILD flag for individual resources
 # TODO functions: rename
 # TODO thorough rewrite: create outer loop that calls functions depending on desired action
